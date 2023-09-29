@@ -1,0 +1,21 @@
+# quick branch
+# Shows recently committed to branches and listens for an int input to switch to that branch
+# A non int input exits the script
+# Default branches is 5, pass an argument to change
+qb() {
+	n=${1:-5}
+	branches=( $(git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)') );
+	for b in "${!branches[@]}"
+	do
+		printf "%d - %s\n" $b ${branches[$b]}
+	done
+	n_br=${#branches[@]}
+	n_min=$(( n > n_br ? n_br-1 : n-1 )) 
+	prompt= printf "[0-%d]: " $n_min
+	read -p "$prompt" selec
+	if [ -n "$selec" ] && [ "$selec" -eq "$selec" ] 2>/dev/null; then
+		git switch ${branches[$selec]}
+	else
+		echo "Invalid input"
+	fi
+}
