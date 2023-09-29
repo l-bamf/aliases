@@ -8,3 +8,11 @@ These aliases can be used as a command in a bash terminal. Add the following lin
 ```
 source [pathtorepo]/[aliasfile]
 ```
+
+# Git aliases
+Use these by adding the following to your .gitconfig
+
+```
+[include]
+	path = [pathtorepo]/git_aliases.config
+```
